@@ -18,13 +18,14 @@ namespace MiniApp
     public partial class MainWindow : Window
     {
         int count = 0;
+        TechWarehouseEntities bC = new BaseConnection().connection;
         /// <summary>
         /// Указание количества балабоб
         /// </summary>
         public MainWindow()
         {
             InitializeComponent();
-            count = Convert.ToInt32(BaseConnection.connection.Warehouse_Device.ToList()[0].Count);
+            count = Convert.ToInt32(bC.Warehouse_Device.ToList()[0].Count);
             balabobs.Text = "Balabobs: " + count;
         }
 
@@ -37,9 +38,9 @@ namespace MiniApp
             {
                 count--;
                 balabobs.Text = "Balabobs: " + count;
-                BaseConnection.connection.Warehouse_Device.ToList()[0].Count -= 1;
+                bC.Warehouse_Device.ToList()[0].Count -= 1;
 
-                BaseConnection.connection.SaveChanges();
+                bC.SaveChanges();
             }
             else
             {
