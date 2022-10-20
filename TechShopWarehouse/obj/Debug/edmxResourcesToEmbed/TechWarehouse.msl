@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище TechWarehouseModelContainer" CdmEntityContainer="TechWarehouseEntities">
+    <EntitySetMapping Name="Device">
+      <EntityTypeMapping TypeName="TechWarehouseModel.Device">
+        <MappingFragment StoreEntitySet="Device">
+          <ScalarProperty Name="DeviceName" ColumnName="DeviceName" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="IdWarehouse" ColumnName="IdWarehouse" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Post">
+      <EntityTypeMapping TypeName="TechWarehouseModel.Post">
+        <MappingFragment StoreEntitySet="Post">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="PostName" ColumnName="PostName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="User">
+      <EntityTypeMapping TypeName="TechWarehouseModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Post" ColumnName="Post" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="InnterNumber" ColumnName="InnterNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Warehouse">
+      <EntityTypeMapping TypeName="TechWarehouseModel.Warehouse">
+        <MappingFragment StoreEntitySet="Warehouse">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NameWarehouse" ColumnName="NameWarehouse" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="InnerNumber" ColumnName="InnerNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Warehouse_Device">
+      <EntityTypeMapping TypeName="TechWarehouseModel.Warehouse_Device">
+        <MappingFragment StoreEntitySet="Warehouse_Device">
+          <ScalarProperty Name="IdWarehouse" ColumnName="IdWarehouse" />
+          <ScalarProperty Name="IdDevice" ColumnName="IdDevice" />
+          <ScalarProperty Name="Count" ColumnName="Count" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="TechWarehouseModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="definition" ColumnName="definition" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

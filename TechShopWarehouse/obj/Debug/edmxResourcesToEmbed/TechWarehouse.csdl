@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TechWarehouseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Device">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdWarehouse" Type="Int32" />
+    <Property Name="Price" Type="Int32" />
+    <NavigationProperty Name="Warehouse_Device" Relationship="Self.FK_Warehouse_Device_Device" FromRole="Device" ToRole="Warehouse_Device" />
+    <Property Name="DeviceName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Post">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PostName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="User" Relationship="Self.FK_User_Post" FromRole="Post" ToRole="User" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Post" Type="Int32" />
+    <Property Name="Name" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+    <Property Name="InnterNumber" Type="Int32" />
+    <NavigationProperty Name="Post1" Relationship="Self.FK_User_Post" FromRole="User" ToRole="Post" />
+  </EntityType>
+  <EntityType Name="Warehouse">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NameWarehouse" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="InnerNumber" Type="Int32" />
+    <NavigationProperty Name="Warehouse_Device" Relationship="Self.FK_Warehouse_Device_Warehouse" FromRole="Warehouse" ToRole="Warehouse_Device" />
+  </EntityType>
+  <EntityType Name="Warehouse_Device">
+    <Key>
+      <PropertyRef Name="IdWarehouse" />
+      <PropertyRef Name="IdDevice" />
+    </Key>
+    <Property Name="IdWarehouse" Type="Int32" Nullable="false" />
+    <Property Name="IdDevice" Type="Int32" Nullable="false" />
+    <Property Name="Count" Type="Int32" />
+    <NavigationProperty Name="Device" Relationship="Self.FK_Warehouse_Device_Device" FromRole="Warehouse_Device" ToRole="Device" />
+    <NavigationProperty Name="Warehouse" Relationship="Self.FK_Warehouse_Device_Warehouse" FromRole="Warehouse_Device" ToRole="Warehouse" />
+  </EntityType>
+  <Association Name="FK_Warehouse_Device_Device">
+    <End Role="Device" Type="Self.Device" Multiplicity="1" />
+    <End Role="Warehouse_Device" Type="Self.Warehouse_Device" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Device">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Warehouse_Device">
+        <PropertyRef Name="IdDevice" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Post">
+    <End Role="Post" Type="Self.Post" Multiplicity="0..1" />
+    <End Role="User" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Post">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="Post" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Warehouse_Device_Warehouse">
+    <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="1" />
+    <End Role="Warehouse_Device" Type="Self.Warehouse_Device" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Warehouse">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Warehouse_Device">
+        <PropertyRef Name="IdWarehouse" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TechWarehouseEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Device" EntityType="Self.Device" />
+    <EntitySet Name="Post" EntityType="Self.Post" />
+    <EntitySet Name="User" EntityType="Self.User" />
+    <EntitySet Name="Warehouse" EntityType="Self.Warehouse" />
+    <EntitySet Name="Warehouse_Device" EntityType="Self.Warehouse_Device" />
+    <AssociationSet Name="FK_Warehouse_Device_Device" Association="Self.FK_Warehouse_Device_Device">
+      <End Role="Device" EntitySet="Device" />
+      <End Role="Warehouse_Device" EntitySet="Warehouse_Device" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Post" Association="Self.FK_User_Post">
+      <End Role="Post" EntitySet="Post" />
+      <End Role="User" EntitySet="User" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Warehouse_Device_Warehouse" Association="Self.FK_Warehouse_Device_Warehouse">
+      <End Role="Warehouse" EntitySet="Warehouse" />
+      <End Role="Warehouse_Device" EntitySet="Warehouse_Device" />
+    </AssociationSet>
+    <EntitySet Name="sysdiagrams" EntityType="TechWarehouseModel.sysdiagrams" />
+  </EntityContainer>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+</Schema>

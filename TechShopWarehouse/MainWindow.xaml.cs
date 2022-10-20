@@ -23,6 +23,7 @@ namespace TechShopWarehouse
         public MainWindow()
         {
             InitializeComponent();
+            mainFrame.NavigationService.Navigate(new AuthPage());
         }
     }
 }
