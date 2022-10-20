@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace MiniApp
 {
-    public static class BaseConnection
+    public class BaseConnection
     {
-        public static TechWarehouseEntities connection = new TechWarehouseEntities();
+        public TechWarehouseEntities connection = new TechWarehouseEntities();
     }
 }

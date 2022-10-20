@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechShopWarehouse", "TechSh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniApp", "MiniApp\MiniApp.csproj", "{DF875D9D-9877-4164-9428-D9950DD779C7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Students", "Students\Students.csproj", "{D06EE09D-7349-4C63-B7EE-8F2606B6370D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{DF875D9D-9877-4164-9428-D9950DD779C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF875D9D-9877-4164-9428-D9950DD779C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF875D9D-9877-4164-9428-D9950DD779C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D06EE09D-7349-4C63-B7EE-8F2606B6370D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D06EE09D-7349-4C63-B7EE-8F2606B6370D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D06EE09D-7349-4C63-B7EE-8F2606B6370D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D06EE09D-7349-4C63-B7EE-8F2606B6370D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
