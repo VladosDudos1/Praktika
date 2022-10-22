@@ -25,14 +25,33 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Название товара" Grid.Column="1" Grid.Row="2" TextAlignment="Center" FontSize="20"/>
-        <TextBlock Text="Номер склада" Grid.Column="1" Grid.Row="3" TextAlignment="Center" FontSize="20"/>
-        <TextBlock Text="Количество" Grid.Column="1" Grid.Row="4" TextAlignment="Center" FontSize="20"/>
 
-        <TextBox x:Name="tbName" Grid.Row="2" Grid.Column="2"/>
-        <TextBox x:Name="tbWarehouse" Grid.Row="3" Grid.Column="2"/>
-        <TextBox x:Name="tbCount" Grid.Row="4" Grid.Column="2"/>
+        <ListView x:Name="lvItems" Grid.RowSpan="7" Grid.ColumnSpan="4"
+                  Foreground="Black">
 
-        <Button x:Name="btnAdd" Content="Добавить" Click="btnAddClick" FontSize="20" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Margin="32, 12, 32, 12"/>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="8" Orientation="Horizontal">
+                        <Label HorizontalAlignment="Center" FontSize="18" Content="{Binding Warehouse.InnerNumber}" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Top"/>
+                        <TextBlock Background="Black" Width="2"/>
+                        <Label HorizontalAlignment="Center" FontSize="18" Content="{Binding Warehouse.NameWarehouse}" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Top"/>
+                        <Label HorizontalAlignment="Center" FontSize="18" Content="{Binding Warehouse.City}" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Top"/>
+                        <TextBlock Background="Black" Width="1"/>
+                        <Label HorizontalAlignment="Center" FontSize="18" Content="{Binding Device.DeviceType.Name}" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Top"/>
+                        <Label HorizontalAlignment="Center" FontSize="18" Content="{Binding Device.DeviceName}" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Top"/>
+                        <TextBlock Background="Black" Width="1"/>
+                        <Label HorizontalAlignment="Center" FontSize="18" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Top">
+                            <Label.Content>
+                                <MultiBinding StringFormat="Цена: {0}₽">
+                                    <Binding Path="Device.Price"/>
+                                </MultiBinding>
+                            </Label.Content>
+                        </Label>
+                        <Label HorizontalAlignment="Center" FontSize="18" Content="{Binding Count}" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Top"/>
+                    </StackPanel>
+                </DataTemplate>
+
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </Page>

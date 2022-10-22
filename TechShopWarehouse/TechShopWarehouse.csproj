@@ -74,6 +74,9 @@
     <Compile Include="Device.cs">
       <DependentUpon>TechWarehouse.tt</DependentUpon>
     </Compile>
+    <Compile Include="DeviceType.cs">
+      <DependentUpon>TechWarehouse.tt</DependentUpon>
+    </Compile>
     <Compile Include="Post.cs">
       <DependentUpon>TechWarehouse.tt</DependentUpon>
     </Compile>

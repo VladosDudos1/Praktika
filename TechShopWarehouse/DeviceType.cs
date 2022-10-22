@@ -12,19 +12,16 @@ namespace TechShopWarehouse
     using System;
     using System.Collections.Generic;
     
-    public partial class Device
+    public partial class DeviceType
     {
-        public Device()
+        public DeviceType()
         {
-            this.Warehouse_Device = new HashSet<Warehouse_Device>();
+            this.Device = new HashSet<Device>();
         }
     
         public int Id { get; set; }
-        public Nullable<int> Price { get; set; }
-        public string DeviceName { get; set; }
-        public Nullable<int> Type { get; set; }
+        public string Name { get; set; }
     
-        public virtual DeviceType DeviceType { get; set; }
-        public virtual ICollection<Warehouse_Device> Warehouse_Device { get; set; }
+        public virtual ICollection<Device> Device { get; set; }
     }
 }

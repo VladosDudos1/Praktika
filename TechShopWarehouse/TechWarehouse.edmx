@@ -7,12 +7,19 @@
     <Schema Namespace="Хранилище TechWarehouseModel" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Device">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IdWarehouse" Type="int" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Price" Type="int" />
-          <Property Name="DeviceName" Type="nvarchar" MaxLength="50" />
+          <Property Name="DeviceName" Type="nvarchar" MaxLength="80" />
+          <Property Name="Type" Type="int" />
+        </EntityType>
+        <EntityType Name="DeviceType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Post">
           <Key>
@@ -60,6 +67,18 @@
           <Property Name="IdDevice" Type="int" Nullable="false" />
           <Property Name="Count" Type="int" />
         </EntityType>
+        <Association Name="FK_Device_DeviceType">
+          <End Role="DeviceType" Type="Self.DeviceType" Multiplicity="0..1" />
+          <End Role="Device" Type="Self.Device" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeviceType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Device">
+              <PropertyRef Name="Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_User_Post">
           <End Role="Post" Type="Self.Post" Multiplicity="0..1" />
           <End Role="User" Type="Self.User" Multiplicity="*" />
@@ -77,7 +96,7 @@
           <End Role="Warehouse_Device" Type="Self.Warehouse_Device" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Device">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Warehouse_Device">
               <PropertyRef Name="IdDevice" />
@@ -98,11 +117,16 @@
         </Association>
         <EntityContainer Name="Хранилище TechWarehouseModelContainer">
           <EntitySet Name="Device" EntityType="Self.Device" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DeviceType" EntityType="Self.DeviceType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Warehouse" EntityType="Self.Warehouse" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Warehouse_Device" EntityType="Self.Warehouse_Device" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Device_DeviceType" Association="Self.FK_Device_DeviceType">
+            <End Role="DeviceType" EntitySet="DeviceType" />
+            <End Role="Device" EntitySet="Device" />
+          </AssociationSet>
           <AssociationSet Name="FK_User_Post" Association="Self.FK_User_Post">
             <End Role="Post" EntitySet="Post" />
             <End Role="User" EntitySet="User" />
@@ -120,15 +144,49 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TechWarehouseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="TechWarehouseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Device" EntityType="TechWarehouseModel.Device" />
+          <EntitySet Name="DeviceType" EntityType="TechWarehouseModel.DeviceType" />
+          <EntitySet Name="Post" EntityType="TechWarehouseModel.Post" />
+          <EntitySet Name="sysdiagrams" EntityType="TechWarehouseModel.sysdiagrams" />
+          <EntitySet Name="User" EntityType="TechWarehouseModel.User" />
+          <EntitySet Name="Warehouse" EntityType="TechWarehouseModel.Warehouse" />
+          <EntitySet Name="Warehouse_Device" EntityType="TechWarehouseModel.Warehouse_Device" />
+          <AssociationSet Name="FK_Device_DeviceType" Association="TechWarehouseModel.FK_Device_DeviceType">
+            <End Role="DeviceType" EntitySet="DeviceType" />
+            <End Role="Device" EntitySet="Device" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Warehouse_Device_Device" Association="TechWarehouseModel.FK_Warehouse_Device_Device">
+            <End Role="Device" EntitySet="Device" />
+            <End Role="Warehouse_Device" EntitySet="Warehouse_Device" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Post" Association="TechWarehouseModel.FK_User_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Warehouse_Device_Warehouse" Association="TechWarehouseModel.FK_Warehouse_Device_Warehouse">
+            <End Role="Warehouse" EntitySet="Warehouse" />
+            <End Role="Warehouse_Device" EntitySet="Warehouse_Device" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Device">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdWarehouse" Type="Int32" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Price" Type="Int32" />
-          <NavigationProperty Name="Warehouse_Device" Relationship="Self.FK_Warehouse_Device_Device" FromRole="Device" ToRole="Warehouse_Device" />
-          <Property Name="DeviceName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DeviceName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Int32" />
+          <NavigationProperty Name="DeviceType" Relationship="TechWarehouseModel.FK_Device_DeviceType" FromRole="Device" ToRole="DeviceType" />
+          <NavigationProperty Name="Warehouse_Device" Relationship="TechWarehouseModel.FK_Warehouse_Device_Device" FromRole="Device" ToRole="Warehouse_Device" />
+        </EntityType>
+        <EntityType Name="DeviceType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Device" Relationship="TechWarehouseModel.FK_Device_DeviceType" FromRole="DeviceType" ToRole="Device" />
         </EntityType>
         <EntityType Name="Post">
           <Key>
@@ -136,7 +194,17 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PostName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="User" Relationship="Self.FK_User_Post" FromRole="Post" ToRole="User" />
+          <NavigationProperty Name="User" Relationship="TechWarehouseModel.FK_User_Post" FromRole="Post" ToRole="User" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -148,7 +216,7 @@
           <Property Name="Post" Type="Int32" />
           <Property Name="Name" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
           <Property Name="InnterNumber" Type="Int32" />
-          <NavigationProperty Name="Post1" Relationship="Self.FK_User_Post" FromRole="User" ToRole="Post" />
+          <NavigationProperty Name="Post1" Relationship="TechWarehouseModel.FK_User_Post" FromRole="User" ToRole="Post" />
         </EntityType>
         <EntityType Name="Warehouse">
           <Key>
@@ -158,7 +226,7 @@
           <Property Name="NameWarehouse" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="InnerNumber" Type="Int32" />
-          <NavigationProperty Name="Warehouse_Device" Relationship="Self.FK_Warehouse_Device_Warehouse" FromRole="Warehouse" ToRole="Warehouse_Device" />
+          <NavigationProperty Name="Warehouse_Device" Relationship="TechWarehouseModel.FK_Warehouse_Device_Warehouse" FromRole="Warehouse" ToRole="Warehouse_Device" />
         </EntityType>
         <EntityType Name="Warehouse_Device">
           <Key>
@@ -168,15 +236,27 @@
           <Property Name="IdWarehouse" Type="Int32" Nullable="false" />
           <Property Name="IdDevice" Type="Int32" Nullable="false" />
           <Property Name="Count" Type="Int32" />
-          <NavigationProperty Name="Device" Relationship="Self.FK_Warehouse_Device_Device" FromRole="Warehouse_Device" ToRole="Device" />
-          <NavigationProperty Name="Warehouse" Relationship="Self.FK_Warehouse_Device_Warehouse" FromRole="Warehouse_Device" ToRole="Warehouse" />
+          <NavigationProperty Name="Device" Relationship="TechWarehouseModel.FK_Warehouse_Device_Device" FromRole="Warehouse_Device" ToRole="Device" />
+          <NavigationProperty Name="Warehouse" Relationship="TechWarehouseModel.FK_Warehouse_Device_Warehouse" FromRole="Warehouse_Device" ToRole="Warehouse" />
         </EntityType>
+        <Association Name="FK_Device_DeviceType">
+          <End Type="TechWarehouseModel.DeviceType" Role="DeviceType" Multiplicity="0..1" />
+          <End Type="TechWarehouseModel.Device" Role="Device" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeviceType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Device">
+              <PropertyRef Name="Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Warehouse_Device_Device">
-          <End Role="Device" Type="Self.Device" Multiplicity="1" />
-          <End Role="Warehouse_Device" Type="Self.Warehouse_Device" Multiplicity="*" />
+          <End Type="TechWarehouseModel.Device" Role="Device" Multiplicity="1" />
+          <End Type="TechWarehouseModel.Warehouse_Device" Role="Warehouse_Device" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Device">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Warehouse_Device">
               <PropertyRef Name="IdDevice" />
@@ -184,8 +264,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_User_Post">
-          <End Role="Post" Type="Self.Post" Multiplicity="0..1" />
-          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <End Type="TechWarehouseModel.Post" Role="Post" Multiplicity="0..1" />
+          <End Type="TechWarehouseModel.User" Role="User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Post">
               <PropertyRef Name="Id" />
@@ -196,8 +276,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Warehouse_Device_Warehouse">
-          <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="1" />
-          <End Role="Warehouse_Device" Type="Self.Warehouse_Device" Multiplicity="*" />
+          <End Type="TechWarehouseModel.Warehouse" Role="Warehouse" Multiplicity="1" />
+          <End Type="TechWarehouseModel.Warehouse_Device" Role="Warehouse_Device" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Warehouse">
               <PropertyRef Name="Id" />
@@ -207,36 +287,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="TechWarehouseEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Device" EntityType="Self.Device" />
-          <EntitySet Name="Post" EntityType="Self.Post" />
-          <EntitySet Name="User" EntityType="Self.User" />
-          <EntitySet Name="Warehouse" EntityType="Self.Warehouse" />
-          <EntitySet Name="Warehouse_Device" EntityType="Self.Warehouse_Device" />
-          <AssociationSet Name="FK_Warehouse_Device_Device" Association="Self.FK_Warehouse_Device_Device">
-            <End Role="Device" EntitySet="Device" />
-            <End Role="Warehouse_Device" EntitySet="Warehouse_Device" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User_Post" Association="Self.FK_User_Post">
-            <End Role="Post" EntitySet="Post" />
-            <End Role="User" EntitySet="User" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Warehouse_Device_Warehouse" Association="Self.FK_Warehouse_Device_Warehouse">
-            <End Role="Warehouse" EntitySet="Warehouse" />
-            <End Role="Warehouse_Device" EntitySet="Warehouse_Device" />
-          </AssociationSet>
-          <EntitySet Name="sysdiagrams" EntityType="TechWarehouseModel.sysdiagrams" />
-        </EntityContainer>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -246,49 +296,26 @@
           <EntitySetMapping Name="Device">
             <EntityTypeMapping TypeName="TechWarehouseModel.Device">
               <MappingFragment StoreEntitySet="Device">
+                <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="DeviceName" ColumnName="DeviceName" />
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="IdWarehouse" ColumnName="IdWarehouse" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DeviceType">
+            <EntityTypeMapping TypeName="TechWarehouseModel.DeviceType">
+              <MappingFragment StoreEntitySet="DeviceType">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Post">
             <EntityTypeMapping TypeName="TechWarehouseModel.Post">
               <MappingFragment StoreEntitySet="Post">
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="PostName" ColumnName="PostName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="User">
-            <EntityTypeMapping TypeName="TechWarehouseModel.User">
-              <MappingFragment StoreEntitySet="User">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Login" ColumnName="Login" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Post" ColumnName="Post" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="InnterNumber" ColumnName="InnterNumber" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Warehouse">
-            <EntityTypeMapping TypeName="TechWarehouseModel.Warehouse">
-              <MappingFragment StoreEntitySet="Warehouse">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="NameWarehouse" ColumnName="NameWarehouse" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="InnerNumber" ColumnName="InnerNumber" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Warehouse_Device">
-            <EntityTypeMapping TypeName="TechWarehouseModel.Warehouse_Device">
-              <MappingFragment StoreEntitySet="Warehouse_Device">
-                <ScalarProperty Name="IdWarehouse" ColumnName="IdWarehouse" />
-                <ScalarProperty Name="IdDevice" ColumnName="IdDevice" />
-                <ScalarProperty Name="Count" ColumnName="Count" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -300,6 +327,37 @@
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
                 <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="TechWarehouseModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="InnterNumber" ColumnName="InnterNumber" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Post" ColumnName="Post" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Warehouse">
+            <EntityTypeMapping TypeName="TechWarehouseModel.Warehouse">
+              <MappingFragment StoreEntitySet="Warehouse">
+                <ScalarProperty Name="InnerNumber" ColumnName="InnerNumber" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="NameWarehouse" ColumnName="NameWarehouse" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Warehouse_Device">
+            <EntityTypeMapping TypeName="TechWarehouseModel.Warehouse_Device">
+              <MappingFragment StoreEntitySet="Warehouse_Device">
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="IdDevice" ColumnName="IdDevice" />
+                <ScalarProperty Name="IdWarehouse" ColumnName="IdWarehouse" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

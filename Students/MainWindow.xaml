@@ -38,7 +38,7 @@
         <ListView x:Name="lvStud" Grid.RowSpan="4" Grid.ColumnSpan="2" Grid.Row="4" Background="Violet">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <UniformGrid Columns="6"></UniformGrid>
+                    <UniformGrid Columns="3"></UniformGrid>
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
 

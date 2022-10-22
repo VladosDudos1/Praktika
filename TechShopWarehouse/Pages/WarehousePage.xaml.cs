@@ -20,46 +20,17 @@ namespace TechShopWarehouse
     /// </summary>
     public partial class WarehousePage : Page
     {
-        private static List<Warehouse> wares { get; set; }
-        private static List<Device> device { get; set; }
+        private List<Warehouse_Device> wdList { get; set; }
         public WarehousePage()
         {
             InitializeComponent();
 
+            wdList = BaseConnection.connection.Warehouse_Device.ToList();
+            lvItems.ItemsSource = wdList;
+
             DataContext = this;
         }
 
-        /// <summary>
-        /// Проверка на наличие в базе объектов и создание новых 
-        /// </summary>
-        private void btnAddClick(object sender, RoutedEventArgs e)
-        {
-            wares = new List<Warehouse>(BaseConnection.connection.Warehouse.ToList());
-            device = new List<Device>(BaseConnection.connection.Device.ToList());
-            var w = wares.Where(a => a.InnerNumber == int.Parse(tbWarehouse.Text)).FirstOrDefault();
-            var d = device.Where(a => a.DeviceName == tbName.Text).FirstOrDefault();
-
-            var warehouse = new Warehouse();
-            var addDevice = new Device();
-            var wd = new Warehouse_Device();
-
-            if(w != null)
-            {
-                BaseConnection.connection.Device.Add(addDevice);
-            }
-            if (d != null)
-            {
-                BaseConnection.connection.Warehouse.Add(warehouse);
-            }
-            else
-            {
-                BaseConnection.connection.Device.Add(addDevice);
-                BaseConnection.connection.Warehouse.Add(warehouse);
-            }
-
-
-            BaseConnection.connection.Warehouse_Device.Add(wd);
-            BaseConnection.connection.SaveChanges();
-        }
+        
     }
 }

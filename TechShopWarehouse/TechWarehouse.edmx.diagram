@@ -5,15 +5,17 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="9dea8e25571e4413aca9be017aebfad4" Name="Diagram1">
-        <EntityTypeShape EntityType="TechWarehouseModel.Device" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="TechWarehouseModel.Post" Width="1.5" PointX="2.75" PointY="4.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="TechWarehouseModel.User" Width="1.5" PointX="5" PointY="4" IsExpanded="true" />
-        <EntityTypeShape EntityType="TechWarehouseModel.Warehouse" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="TechWarehouseModel.Warehouse_Device" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
-        <AssociationConnector Association="TechWarehouseModel.FK_Warehouse_Device_Device" ManuallyRouted="false" />
-        <AssociationConnector Association="TechWarehouseModel.FK_User_Post" ManuallyRouted="false" />
-        <AssociationConnector Association="TechWarehouseModel.FK_Warehouse_Device_Warehouse" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="TechWarehouseModel.sysdiagrams" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="TechWarehouseModel.Device" Width="1.5" PointX="3" PointY="0.875" />
+        <EntityTypeShape EntityType="TechWarehouseModel.DeviceType" Width="1.5" PointX="0.75" PointY="1.25" />
+        <EntityTypeShape EntityType="TechWarehouseModel.Post" Width="1.5" PointX="5.75" PointY="5.375" />
+        <EntityTypeShape EntityType="TechWarehouseModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TechWarehouseModel.User" Width="1.5" PointX="8" PointY="5" />
+        <EntityTypeShape EntityType="TechWarehouseModel.Warehouse" Width="1.5" PointX="3" PointY="5" />
+        <EntityTypeShape EntityType="TechWarehouseModel.Warehouse_Device" Width="1.5" PointX="5.25" PointY="1" />
+        <AssociationConnector Association="TechWarehouseModel.FK_Device_DeviceType" />
+        <AssociationConnector Association="TechWarehouseModel.FK_Warehouse_Device_Device" />
+        <AssociationConnector Association="TechWarehouseModel.FK_User_Post" />
+        <AssociationConnector Association="TechWarehouseModel.FK_Warehouse_Device_Warehouse" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
