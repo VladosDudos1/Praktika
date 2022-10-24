@@ -40,13 +40,8 @@
                         <Label HorizontalAlignment="Center" FontSize="18" Content="{Binding Device.DeviceType.Name}" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Top"/>
                         <Label HorizontalAlignment="Center" FontSize="18" Content="{Binding Device.DeviceName}" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Top"/>
                         <TextBlock Background="Black" Width="1"/>
-                        <Label HorizontalAlignment="Center" FontSize="18" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Top">
-                            <Label.Content>
-                                <MultiBinding StringFormat="Цена: {0}₽">
-                                    <Binding Path="Device.Price"/>
-                                </MultiBinding>
-                            </Label.Content>
-                        </Label>
+                        <Label HorizontalAlignment="Center" FontSize="18" Content="{Binding Device.Price}" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Top"/>
+                        <TextBlock Background="Black" Text="руб. "/>
                         <Label HorizontalAlignment="Center" FontSize="18" Content="{Binding Count}" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Top"/>
                     </StackPanel>
                 </DataTemplate>
