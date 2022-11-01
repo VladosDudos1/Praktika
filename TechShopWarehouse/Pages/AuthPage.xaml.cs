@@ -28,17 +28,10 @@ namespace TechShopWarehouse
 
             DataContext = this;
         }
-        /// <summary>
-        /// Перейти на страничку регистрации
-        /// </summary>
         private void regBtn_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new RegPage());
         }
-
-        /// <summary>
-        /// Войти в аккаунт
-        /// </summary>
         private void enterBtn_Click(object sender, RoutedEventArgs e)
         {
             users = new List<User>(BaseConnection.connection.User.ToList());
@@ -48,6 +41,8 @@ namespace TechShopWarehouse
                 Properties.Settings.Default.Login = LoginTB.Text.Trim();
                 Properties.Settings.Default.Save();
                 NavigationService.Navigate(new WarehousePage());
+
+                DataManager.role = Convert.ToInt32(k.Post);
             }
             else
             {

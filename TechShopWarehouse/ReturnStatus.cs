@@ -12,18 +12,16 @@ namespace TechShopWarehouse
     using System;
     using System.Collections.Generic;
     
-    public partial class Warehouse
+    public partial class ReturnStatus
     {
-        public Warehouse()
+        public ReturnStatus()
         {
             this.Warehouse_Device = new HashSet<Warehouse_Device>();
         }
     
         public int Id { get; set; }
-        public string NameWarehouse { get; set; }
-        public string City { get; set; }
-        public Nullable<int> InnerNumber { get; set; }
-        public Nullable<int> ReturnStatus { get; set; }
+        public string Name { get; set; }
+        public string Color { get; set; }
     
         public virtual ICollection<Warehouse_Device> Warehouse_Device { get; set; }
     }

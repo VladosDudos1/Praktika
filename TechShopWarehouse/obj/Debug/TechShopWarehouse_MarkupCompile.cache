@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\201921\source\repos\TechShopWarehouse\TechShopWarehouse\App.xaml
-4-130453947
+5-1490585154
 2-1725732617
-19-1235635086
+22-783973424
 201655612467
-Pages\AuthPage.xaml;MainWindow.xaml;Pages\RegPage.xaml;Pages\WarehousePage.xaml;
+Pages\AuthPage.xaml;MainWindow.xaml;Pages\RegPage.xaml;Pages\WarehousePage.xaml;AdminWindow.xaml;
 
 False
 

@@ -27,6 +27,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="ReturnStatus">
+      <EntityTypeMapping TypeName="TechWarehouseModel.ReturnStatus">
+        <MappingFragment StoreEntitySet="ReturnStatus">
+          <ScalarProperty Name="Color" ColumnName="Color" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="sysdiagrams">
       <EntityTypeMapping TypeName="TechWarehouseModel.sysdiagrams">
         <MappingFragment StoreEntitySet="sysdiagrams">
@@ -53,6 +62,7 @@
     <EntitySetMapping Name="Warehouse">
       <EntityTypeMapping TypeName="TechWarehouseModel.Warehouse">
         <MappingFragment StoreEntitySet="Warehouse">
+          <ScalarProperty Name="ReturnStatus" ColumnName="ReturnStatus" />
           <ScalarProperty Name="InnerNumber" ColumnName="InnerNumber" />
           <ScalarProperty Name="City" ColumnName="City" />
           <ScalarProperty Name="NameWarehouse" ColumnName="NameWarehouse" />
@@ -63,9 +73,11 @@
     <EntitySetMapping Name="Warehouse_Device">
       <EntityTypeMapping TypeName="TechWarehouseModel.Warehouse_Device">
         <MappingFragment StoreEntitySet="Warehouse_Device">
+          <ScalarProperty Name="RetStatus" ColumnName="RetStatus" />
           <ScalarProperty Name="Count" ColumnName="Count" />
           <ScalarProperty Name="IdDevice" ColumnName="IdDevice" />
           <ScalarProperty Name="IdWarehouse" ColumnName="IdWarehouse" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

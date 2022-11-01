@@ -30,7 +30,15 @@ namespace TechShopWarehouse
 
             DataContext = this;
         }
-
-        
+         
+        private void lvItems_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (DataManager.role == 1)
+            {
+                new AdminWindow(lvItems.SelectedItem as Warehouse_Device).ShowDialog();
+                wdList = BaseConnection.connection.Warehouse_Device.ToList();
+                lvItems.ItemsSource = wdList;
+            }
+        }
     }
 }

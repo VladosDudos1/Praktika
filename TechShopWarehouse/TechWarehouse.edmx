@@ -28,6 +28,14 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PostName" Type="nvarchar" MaxLength="40" />
         </EntityType>
+        <EntityType Name="ReturnStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="25" />
+          <Property Name="Color" Type="nvarchar" MaxLength="10" />
+        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -57,15 +65,17 @@
           <Property Name="NameWarehouse" Type="nvarchar" MaxLength="50" />
           <Property Name="City" Type="nvarchar" MaxLength="50" />
           <Property Name="InnerNumber" Type="int" />
+          <Property Name="ReturnStatus" Type="int" />
         </EntityType>
         <EntityType Name="Warehouse_Device">
           <Key>
-            <PropertyRef Name="IdWarehouse" />
-            <PropertyRef Name="IdDevice" />
+            <PropertyRef Name="Id" />
           </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdWarehouse" Type="int" Nullable="false" />
           <Property Name="IdDevice" Type="int" Nullable="false" />
           <Property Name="Count" Type="int" />
+          <Property Name="RetStatus" Type="int" />
         </EntityType>
         <Association Name="FK_Device_DeviceType">
           <End Role="DeviceType" Type="Self.DeviceType" Multiplicity="0..1" />
@@ -103,6 +113,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Warehouse_Device_ReturnStatus">
+          <End Role="ReturnStatus" Type="Self.ReturnStatus" Multiplicity="0..1" />
+          <End Role="Warehouse_Device" Type="Self.Warehouse_Device" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReturnStatus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Warehouse_Device">
+              <PropertyRef Name="RetStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Warehouse_Device_Warehouse">
           <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="1" />
           <End Role="Warehouse_Device" Type="Self.Warehouse_Device" Multiplicity="*" />
@@ -119,6 +141,7 @@
           <EntitySet Name="Device" EntityType="Self.Device" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DeviceType" EntityType="Self.DeviceType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReturnStatus" EntityType="Self.ReturnStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Warehouse" EntityType="Self.Warehouse" Schema="dbo" store:Type="Tables" />
@@ -135,6 +158,10 @@
             <End Role="Device" EntitySet="Device" />
             <End Role="Warehouse_Device" EntitySet="Warehouse_Device" />
           </AssociationSet>
+          <AssociationSet Name="FK_Warehouse_Device_ReturnStatus" Association="Self.FK_Warehouse_Device_ReturnStatus">
+            <End Role="ReturnStatus" EntitySet="ReturnStatus" />
+            <End Role="Warehouse_Device" EntitySet="Warehouse_Device" />
+          </AssociationSet>
           <AssociationSet Name="FK_Warehouse_Device_Warehouse" Association="Self.FK_Warehouse_Device_Warehouse">
             <End Role="Warehouse" EntitySet="Warehouse" />
             <End Role="Warehouse_Device" EntitySet="Warehouse_Device" />
@@ -148,6 +175,7 @@
           <EntitySet Name="Device" EntityType="TechWarehouseModel.Device" />
           <EntitySet Name="DeviceType" EntityType="TechWarehouseModel.DeviceType" />
           <EntitySet Name="Post" EntityType="TechWarehouseModel.Post" />
+          <EntitySet Name="ReturnStatus" EntityType="TechWarehouseModel.ReturnStatus" />
           <EntitySet Name="sysdiagrams" EntityType="TechWarehouseModel.sysdiagrams" />
           <EntitySet Name="User" EntityType="TechWarehouseModel.User" />
           <EntitySet Name="Warehouse" EntityType="TechWarehouseModel.Warehouse" />
@@ -163,6 +191,10 @@
           <AssociationSet Name="FK_User_Post" Association="TechWarehouseModel.FK_User_Post">
             <End Role="Post" EntitySet="Post" />
             <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Warehouse_Device_ReturnStatus" Association="TechWarehouseModel.FK_Warehouse_Device_ReturnStatus">
+            <End Role="ReturnStatus" EntitySet="ReturnStatus" />
+            <End Role="Warehouse_Device" EntitySet="Warehouse_Device" />
           </AssociationSet>
           <AssociationSet Name="FK_Warehouse_Device_Warehouse" Association="TechWarehouseModel.FK_Warehouse_Device_Warehouse">
             <End Role="Warehouse" EntitySet="Warehouse" />
@@ -196,6 +228,15 @@
           <Property Name="PostName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="User" Relationship="TechWarehouseModel.FK_User_Post" FromRole="Post" ToRole="User" />
         </EntityType>
+        <EntityType Name="ReturnStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Color" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Warehouse_Device" Relationship="TechWarehouseModel.FK_Warehouse_Device_ReturnStatus" FromRole="ReturnStatus" ToRole="Warehouse_Device" />
+        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -226,17 +267,20 @@
           <Property Name="NameWarehouse" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="InnerNumber" Type="Int32" />
+          <Property Name="ReturnStatus" Type="Int32" />
           <NavigationProperty Name="Warehouse_Device" Relationship="TechWarehouseModel.FK_Warehouse_Device_Warehouse" FromRole="Warehouse" ToRole="Warehouse_Device" />
         </EntityType>
         <EntityType Name="Warehouse_Device">
           <Key>
-            <PropertyRef Name="IdWarehouse" />
-            <PropertyRef Name="IdDevice" />
+            <PropertyRef Name="Id" />
           </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IdWarehouse" Type="Int32" Nullable="false" />
           <Property Name="IdDevice" Type="Int32" Nullable="false" />
           <Property Name="Count" Type="Int32" />
+          <Property Name="RetStatus" Type="Int32" />
           <NavigationProperty Name="Device" Relationship="TechWarehouseModel.FK_Warehouse_Device_Device" FromRole="Warehouse_Device" ToRole="Device" />
+          <NavigationProperty Name="ReturnStatus" Relationship="TechWarehouseModel.FK_Warehouse_Device_ReturnStatus" FromRole="Warehouse_Device" ToRole="ReturnStatus" />
           <NavigationProperty Name="Warehouse" Relationship="TechWarehouseModel.FK_Warehouse_Device_Warehouse" FromRole="Warehouse_Device" ToRole="Warehouse" />
         </EntityType>
         <Association Name="FK_Device_DeviceType">
@@ -275,6 +319,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Warehouse_Device_ReturnStatus">
+          <End Type="TechWarehouseModel.ReturnStatus" Role="ReturnStatus" Multiplicity="0..1" />
+          <End Type="TechWarehouseModel.Warehouse_Device" Role="Warehouse_Device" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReturnStatus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Warehouse_Device">
+              <PropertyRef Name="RetStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Warehouse_Device_Warehouse">
           <End Type="TechWarehouseModel.Warehouse" Role="Warehouse" Multiplicity="1" />
           <End Type="TechWarehouseModel.Warehouse_Device" Role="Warehouse_Device" Multiplicity="*" />
@@ -287,7 +343,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -319,6 +375,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ReturnStatus">
+            <EntityTypeMapping TypeName="TechWarehouseModel.ReturnStatus">
+              <MappingFragment StoreEntitySet="ReturnStatus">
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="TechWarehouseModel.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
@@ -345,6 +410,7 @@
           <EntitySetMapping Name="Warehouse">
             <EntityTypeMapping TypeName="TechWarehouseModel.Warehouse">
               <MappingFragment StoreEntitySet="Warehouse">
+                <ScalarProperty Name="ReturnStatus" ColumnName="ReturnStatus" />
                 <ScalarProperty Name="InnerNumber" ColumnName="InnerNumber" />
                 <ScalarProperty Name="City" ColumnName="City" />
                 <ScalarProperty Name="NameWarehouse" ColumnName="NameWarehouse" />
@@ -355,9 +421,11 @@
           <EntitySetMapping Name="Warehouse_Device">
             <EntityTypeMapping TypeName="TechWarehouseModel.Warehouse_Device">
               <MappingFragment StoreEntitySet="Warehouse_Device">
+                <ScalarProperty Name="RetStatus" ColumnName="RetStatus" />
                 <ScalarProperty Name="Count" ColumnName="Count" />
                 <ScalarProperty Name="IdDevice" ColumnName="IdDevice" />
                 <ScalarProperty Name="IdWarehouse" ColumnName="IdWarehouse" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

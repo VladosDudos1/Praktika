@@ -28,6 +28,7 @@ namespace TechShopWarehouse
         public DbSet<Device> Device { get; set; }
         public DbSet<DeviceType> DeviceType { get; set; }
         public DbSet<Post> Post { get; set; }
+        public DbSet<ReturnStatus> ReturnStatus { get; set; }
         public DbSet<sysdiagrams> sysdiagrams { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet<Warehouse> Warehouse { get; set; }

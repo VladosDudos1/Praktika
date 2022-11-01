@@ -30,3 +30,5 @@ C:\Users\201921\source\repos\TechShopWarehouse\TechShopWarehouse\obj\Debug\TechS
 C:\Users\201921\source\repos\TechShopWarehouse\TechShopWarehouse\obj\Debug\Pages\AuthPage.baml
 C:\Users\201921\source\repos\TechShopWarehouse\TechShopWarehouse\obj\Debug\Pages\RegPage.baml
 C:\Users\201921\source\repos\TechShopWarehouse\TechShopWarehouse\obj\Debug\Pages\WarehousePage.baml
+C:\Users\201921\source\repos\TechShopWarehouse\TechShopWarehouse\obj\Debug\AdminWindow.g.cs
+C:\Users\201921\source\repos\TechShopWarehouse\TechShopWarehouse\obj\Debug\AdminWindow.baml

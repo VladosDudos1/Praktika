@@ -14,11 +14,14 @@ namespace TechShopWarehouse
     
     public partial class Warehouse_Device
     {
+        public int Id { get; set; }
         public int IdWarehouse { get; set; }
         public int IdDevice { get; set; }
         public Nullable<int> Count { get; set; }
+        public Nullable<int> RetStatus { get; set; }
     
         public virtual Device Device { get; set; }
+        public virtual ReturnStatus ReturnStatus { get; set; }
         public virtual Warehouse Warehouse { get; set; }
     }
 }

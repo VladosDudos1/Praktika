@@ -9,7 +9,7 @@
       Title="WarehousePage">
 
     <Grid>
-        <Grid.ColumnDefinitions>
+        <Grid.ColumnDefinitions> 
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -27,7 +27,7 @@
         </Grid.RowDefinitions>
 
         <ListView x:Name="lvItems" Grid.RowSpan="7" Grid.ColumnSpan="4"
-                  Foreground="Black">
+                  Foreground="Black" MouseDoubleClick="lvItems_MouseDoubleClick" >
 
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -41,11 +41,13 @@
                         <Label HorizontalAlignment="Center" FontSize="18" Content="{Binding Device.DeviceName}" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Top"/>
                         <TextBlock Background="Black" Width="1"/>
                         <Label HorizontalAlignment="Center" FontSize="18" Content="{Binding Device.Price}" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Top"/>
-                        <TextBlock Background="Black" Text="руб. "/>
+                        <TextBlock Text="руб. " Foreground="Black" FontSize="16" VerticalAlignment="Center"/>
                         <Label HorizontalAlignment="Center" FontSize="18" Content="{Binding Count}" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Top"/>
+                        <TextBlock Text="шт. " Foreground="Black" FontSize="16" VerticalAlignment="Center"/>
+                        <TextBlock Background="Black" Width="1"/>
+                        <Label Foreground="{Binding ReturnStatus.Color}" HorizontalAlignment="Center" FontSize="18" Content="{Binding ReturnStatus.Name}" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Top"/>
                     </StackPanel>
                 </DataTemplate>
-
             </ListView.ItemTemplate>
         </ListView>
     </Grid>

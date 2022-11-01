@@ -4,17 +4,19 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="9dea8e25571e4413aca9be017aebfad4" Name="Diagram1">
-        <EntityTypeShape EntityType="TechWarehouseModel.Device" Width="1.5" PointX="3" PointY="0.875" />
-        <EntityTypeShape EntityType="TechWarehouseModel.DeviceType" Width="1.5" PointX="0.75" PointY="1.25" />
+      <Diagram DiagramId="9dea8e25571e4413aca9be017aebfad4" Name="Diagram1" ZoomLevel="72">
+        <EntityTypeShape EntityType="TechWarehouseModel.Device" Width="1.5" PointX="3" PointY="1.125" />
+        <EntityTypeShape EntityType="TechWarehouseModel.DeviceType" Width="1.5" PointX="0.75" PointY="1.375" />
         <EntityTypeShape EntityType="TechWarehouseModel.Post" Width="1.5" PointX="5.75" PointY="5.375" />
+        <EntityTypeShape EntityType="TechWarehouseModel.ReturnStatus" Width="1.5" PointX="3" PointY="8.125" />
         <EntityTypeShape EntityType="TechWarehouseModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="0.75" />
         <EntityTypeShape EntityType="TechWarehouseModel.User" Width="1.5" PointX="8" PointY="5" />
-        <EntityTypeShape EntityType="TechWarehouseModel.Warehouse" Width="1.5" PointX="3" PointY="5" />
+        <EntityTypeShape EntityType="TechWarehouseModel.Warehouse" Width="1.5" PointX="3" PointY="5.125" />
         <EntityTypeShape EntityType="TechWarehouseModel.Warehouse_Device" Width="1.5" PointX="5.25" PointY="1" />
         <AssociationConnector Association="TechWarehouseModel.FK_Device_DeviceType" />
         <AssociationConnector Association="TechWarehouseModel.FK_Warehouse_Device_Device" />
         <AssociationConnector Association="TechWarehouseModel.FK_User_Post" />
+        <AssociationConnector Association="TechWarehouseModel.FK_Warehouse_Device_ReturnStatus" />
         <AssociationConnector Association="TechWarehouseModel.FK_Warehouse_Device_Warehouse" />
       </Diagram>
     </edmx:Diagrams>
